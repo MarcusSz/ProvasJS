@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>        
+       
+        let n = Number(prompt("Digite um numero: "))
+
+
+        if (n >= 0) {
+            let fatorial = 1;
+            let i = 1;
+        
+            while (i <= n) {
+                fatorial *= i;
+                i++;
+            }
+        
+            console.log("Fatorial de " + n + " é: " + fatorial);
+        } else {
+            console.log("O número deve ser um inteiro positivo");
+        }
+
+
+    if (n >= 0) {
+        let a = 0, b = 1, fibonacci = [];
+        
+        if (n >= 1) {
+            fibonacci.push(a);
+        }
+        
+        while (b <= n) {
+            fibonacci.push(b);
+            let temp = b;
+            b = a + b;
+            a = temp;
+        }
+        
+        console.log("Sequência de Fibonacci até " + n + ": " + fibonacci.join(", "));
+    } else {
+        console.log("O número deve ser um inteiro positivo");
+    }
+
+    </script>
+</body>
+</html>
