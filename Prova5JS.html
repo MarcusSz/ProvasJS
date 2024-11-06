@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerenciador de Tarefas Domésticas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+    }
+
+    .task-manager {
+      margin-bottom: 20px;
+    }
+
+    #taskInput {
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px;
+      font-size: 16px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      padding: 10px;
+      border: 1px solid #ddd;
+      margin-top: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    button.delete-btn {
+      color: red;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gerenciador de Tarefas Domésticas</h1>
+  
+  <div class="task-manager">
+    <input type="text" id="taskInput" placeholder="Adicionar nova tarefa">
+    <button onclick="addTask()">Adicionar</button>
+  </div>
+
+  <ul id="taskList"></ul>
+
+  <script>
+    let taskList = [];
+
+    
+    function addTask() {
+      let taskInput = document.getElementById("taskInput");
+      let task = taskInput.value.trim();
+
+      if (task) {
+        taskList.push(task);
+        taskInput.value = "";
+        renderTasks();
+      }
+    }
+
+    
+    function removeTask(index) {
+      taskList.splice(index, 1); 
+      renderTasks();
+    }
+
+    function renderTasks() {
+      let taskListElement = document.getElementById("taskList");
+      taskListElement.innerHTML = "";
+
+      taskList.forEach((task, index) => {
+        let listItem = document.createElement("li");
+        listItem.innerHTML = `
+          ${task}
+          <button class="delete-btn" onclick="removeTask(${index})">Remover</button>
+        `;
+        taskListElement.appendChild(listItem);
+      });
+    }
+  </script>
+</body>
+</html>
