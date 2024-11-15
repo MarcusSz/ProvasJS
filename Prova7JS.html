@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Gorjeta</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        background-color: #f5f5f5;
+    }
+    input, select, button {
+        padding: 10px;
+        margin: 5px;
+        width: 200px;
+        font-size: 16px;
+    }
+    h1, h2 {
+        color: #333;
+    }
+</style>
+</head>
+<body>
+    <h1>Calculadora de Gorjeta</h1>
+    <div>
+        <input id="valorConta" type="number" placeholder="Valor da conta" min="0">
+        <select id="qualidadeServico">
+            <option value="bom">Bom</option>
+            <option value="regular">Regular</option>
+            <option value="ruim">Ruim</option>
+        </select>
+        <button id="calcularBtn">Calcular Gorjeta</button>
+    </div>
+    <h2>Resultado: <span id="resultado"></span></h2>
+
+    <script>
+    
+        let valorConta = document.getElementById("valorConta");
+        let qualidadeServico = document.getElementById("qualidadeServico");
+        let calcularBtn = document.getElementById("calcularBtn");
+        let resultado = document.getElementById("resultado");
+
+
+        const calcularGorjeta = (valor, qualidade) => {
+        let percentual;
+
+
+            switch (qualidade) {
+                case "bom":
+                percentual = 0.2;
+                break;
+            case "regular":
+                percentual = 0.1;
+                break;
+            case "ruim":
+                percentual = 0.05;
+                break;
+            default:
+                percentual = 0;
+            }
+
+            return valor * percentual;
+        };
+
+
+        let calcular = () => {
+        let valor = parseFloat(valorConta.value);
+        let qualidade = qualidadeServico.value;
+
+    
+        if (isNaN(valor) || valor <= 0) {
+            resultado.textContent = "Por favor, insira um valor válido para a conta.";
+            return;
+        }
+
+    
+        let gorjeta = calcularGorjeta(valor, qualidade);
+        let total = valor + gorjeta;
+
+        resultado.textContent = `Gorjeta: R$ ${gorjeta.toFixed(2)} | Total: R$ ${total.toFixed(2)}`;
+    };
+
+        calcularBtn.addEventListener("click", calcular);
+
+    </script>
+</body>
+</html>
