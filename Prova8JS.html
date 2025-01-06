@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversor de Unidades de Comprimento</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 400px;
+      margin: auto;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
+    h1 {
+      text-align: center;
+    }
+    label, select, input, button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #resultado {
+      font-size: 18px;
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Conversor de Unidades</h1>
+  <label for="metros">Digite o valor em metros:</label>
+  <input type="number" id="metros" placeholder="Ex: 10">
+  
+  <label for="unidade">Selecione a unidade de destino:</label>
+  <select id="unidade">
+    <option value="jarda">Jarda</option>
+    <option value="pe">Pé</option>
+    <option value="polegada">Polegada</option>
+    <option value="milha">Milha</option>
+  </select>
+  
+  <button onclick="converter()">Converter</button>
+  
+  <h2>Resultado:</h2>
+  <p id="resultado">Digite os valores acima para calcular.</p>
+  
+  <script>
+    function converter() {
+      const metros = parseFloat(document.getElementById('metros').value);
+      const unidade = document.getElementById('unidade').value;
+      const resultado = document.getElementById('resultado');
+
+      if (isNaN(metros) || metros <= 0) {
+        resultado.textContent = "Por favor, insira um valor válido em metros.";
+        return;
+      }
+
+      let valorConvertido;
+      switch (unidade) {
+        case "jarda":
+          valorConvertido = metros * 1.094;
+          resultado.textContent = `${metros} metros equivalem a ${valorConvertido.toFixed(3)} jardas.`;
+          break;
+        case "pe":
+          valorConvertido = metros * 3.281;
+          resultado.textContent = `${metros} metros equivalem a ${valorConvertido.toFixed(3)} pés.`;
+          break;
+        case "polegada":
+          valorConvertido = metros * 39.37;
+          resultado.textContent = `${metros} metros equivalem a ${valorConvertido.toFixed(3)} polegadas.`;
+          break;
+        case "milha":
+          valorConvertido = metros * 0.000621;
+          resultado.textContent = `${metros} metros equivalem a ${valorConvertido.toFixed(6)} milhas.`;
+          break;
+        default:
+          resultado.textContent = "Selecione uma unidade válida.";
+      }
+    }
+  </script>
+</body>
+</html>
