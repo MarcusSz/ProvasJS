@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+  <html lang="pt_br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interativo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            border: 1px solid #007BFF;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .options button:hover {
+            background-color: #e0f0ff;
+        }
+        #feedback {
+            font-size: 1.1em;
+            margin: 20px 0;
+        }
+        #reload-btn {
+            display: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #reload-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div id="quiz">
+            <div class="question" id="question">Carregando...</div>
+            <div class="options" id="options"></div>
+            <div id="feedback"></div>
+            <button id="reload-btn">Próxima pergunta</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Quem descobriu o Brasil?",
+                options: ["Pedro Álvares Cabral", "Cristóvão Colombo", "Vasco da Gama", "Fernão de Magalhães"],
+                correct: 0
+            },
+            {
+                question: "Qual é o maior planeta do Sistema Solar?",
+                options: ["Terra", "Júpiter", "Saturno", "Marte"],
+                correct: 1
+            },
+            {
+                question: "Quem pintou a Mona Lisa?",
+                options: ["Michelangelo", "Leonardo da Vinci", "Raphael", "Donatello"],
+                correct: 1
+            },
+            {
+                question: "Qual é a capital da França?",
+                options: ["Berlim", "Madri", "Paris", "Londres"],
+                correct: 2
+            }
+        ];
+
+        const questionElement = document.getElementById("question");
+        const optionsElement = document.getElementById("options");
+        const feedbackElement = document.getElementById("feedback");
+        const reloadButton = document.getElementById("reload-btn");
+
+        let currentQuestionIndex = Math.floor(Math.random() * questions.length);
+
+        function loadQuestion() {
+            const question = questions[currentQuestionIndex];
+            questionElement.textContent = question.question;
+
+            optionsElement.innerHTML = ""; // Limpar as opções
+            question.options.forEach((option, index) => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.onclick = () => checkAnswer(index);
+                optionsElement.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedIndex) {
+            const question = questions[currentQuestionIndex];
+            if (selectedIndex === question.correct) {
+                feedbackElement.textContent = "Acertou!!!";
+                feedbackElement.style.color = "green";
+            } else {
+                feedbackElement.textContent = `Errado! A resposta correta é: ${question.options[question.correct]}`;
+                feedbackElement.style.color = "red";
+            }
+            reloadButton.style.display = "block";
+        }
+
+        reloadButton.onclick = () => {
+            currentQuestionIndex = Math.floor(Math.random() * questions.length);
+            feedbackElement.textContent = "";
+            reloadButton.style.display = "none";
+            loadQuestion();
+        };
+
+        loadQuestion();
+    </script>
+</body>
+</html>
